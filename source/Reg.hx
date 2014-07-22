@@ -1,6 +1,7 @@
 package;
 
 import flixel.util.FlxSave;
+import Math;
 
 /**
  * Handy, pre-built Registry class that can be used to store 
@@ -34,4 +35,9 @@ class Reg
 	 * Especially useful for setting up multiple save slots.
 	 */
 	static public var saves:Array<FlxSave> = [];
+	
+	static public function getRandomIntZeroToUnder(limit:Int):Int
+	{
+		return Math.floor(Math.random() * limit);
+	}
 }

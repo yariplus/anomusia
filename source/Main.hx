@@ -8,10 +8,13 @@ import flash.Lib;
 import flixel.FlxGame;
 
 /**
+ * @author Timothy Fike
+ * Template used
  * @author Joshua Granick
  */
 class Main extends Sprite 
 {
+	
 	// Entry point
 	static public function main():Void
 	{	
@@ -47,7 +50,12 @@ class Main extends Sprite
 	
 	private function initialize():Void 
 	{
-		Lib.current.stage.align = StageAlign.TOP_LEFT;
+		Lib.current.stage.align = StageAlign.TOP;
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
+	}
+	
+	private function Update(freshEvent:Event):Void
+	{
+
 	}
 }
