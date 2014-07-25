@@ -4,6 +4,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
 import flixel.text.FlxText;
+import haxe.Timer;
 import maps.MapNode;
 import haxe.ds.Vector;
 import flixel.util.FlxColor;
@@ -17,7 +18,7 @@ import Reg;
  * ...
  * @author ...
  */
-class TestStatePrim3 extends FlxState
+class TestStatePrimRandomWall extends FlxState
 {
 	private var _walls:Array<PrimMazeWall> = new Array<PrimMazeWall>();
 	var isMaze:Array<Array<Bool>> = new Array<Array<Bool>>();
@@ -31,10 +32,14 @@ class TestStatePrim3 extends FlxState
 	private var LANDMARK:Int = 16;
 	
 	private var _wallGraphics:Array<String>;
+	private var _cellSprites:Array<FlxSprite>;
 
 	var stext:FlxText;
 	
 	var delay:Int;
+	var s1:Float = 0;
+	var s2:Float = 0;
+	
 	
 	private var _complete:Bool = false;
 
@@ -83,8 +88,43 @@ class TestStatePrim3 extends FlxState
 		_wallGraphics[30] = "assets/images/cellLandmarkOpenDownLeftRight.png";
 		_wallGraphics[31] = "assets/images/cellLandmarkOpenAll.png";
 		
+		_cellSprites = new Array<FlxSprite>();
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenNone.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenUp.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenDown.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenUpDown.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenLeft.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenUpLeft.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenDownLeft.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenUpDownLeft.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenUpRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenDownRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenUpDownRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenLeftRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenUpLeftRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenDownLeftRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellOpenAll.png") );
+		
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenNone.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUp.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenDown.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUpDown.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenLeft.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUpLeft.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenDownLeft.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUpDownLeft.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUpRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenDownRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUpDownRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenLeftRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUpLeftRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenDownLeftRight.png") );
+		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenAll.png") );
+		
 		// Add landmarks
-		for (i in 1...16)
+		for (i in 1...12)
 		{
 			var x = Reg.getRandomIntZeroToUnder(28);
 			var y = Reg.getRandomIntZeroToUnder(28);
@@ -99,7 +139,7 @@ class TestStatePrim3 extends FlxState
 			setGridCell(x, y, LANDMARK+DOWN+RIGHT);
 			setGridCell(x+1, y, LANDMARK+DOWN+LEFT);
 			setGridCell(x, y+1, LANDMARK+UP+RIGHT);
-			setGridCell(x+1, y+1, LANDMARK+UP+LEFT);
+			setGridCell(x+1, y+1, LANDMARK+UP+LEFT+RIGHT);
 		}
 		
 		
@@ -120,64 +160,67 @@ class TestStatePrim3 extends FlxState
 	
 	override public function update():Void
 	{
+		
+		
+		
 		if (_walls.length > 0)
 		{
 			//Pick a random wall
 			var iwall:Int = Reg.getRandomIntZeroToUnder(_walls.length);
+			
+			
+			
 			var x1 = _walls[iwall]._x1;
 			var y1 = _walls[iwall]._y1;
 			var x2 = _walls[iwall]._x2;
 			var y2 = _walls[iwall]._y2;
-			var isFirstCellMaze = isMaze[x1][y1];
-			var isSecondCellMaze = isMaze[x2][y2];
+			var isDestCellMaze = isMaze[x2][y2];
+			var iFirstPath = 0;
+			var iSecondPath = 0;
 			
-			if ( !(isFirstCellMaze && isSecondCellMaze) )
+			switch (x2-x1)
 			{
-				var iFirstPath = 0;
-				var iSecondPath = 0;
-				switch (x2-x1)
-				{
-					case -1: // Left
-						iFirstPath += 4;
-						iSecondPath += 8;
-					case 1: // Right
-						iFirstPath += 8;
-						iSecondPath += 4;
-				}
-				switch (y2-y1)
-				{
-					case -1: // Up
-						iFirstPath += 1;
-						iSecondPath += 2;
-					case 1: // Down
-						iFirstPath += 2;
-						iSecondPath += 1;
-				}
-				
+				case -1: // Left
+					iFirstPath += LEFT;
+					iSecondPath += RIGHT;
+				case 1: // Right
+					iFirstPath += RIGHT;
+					iSecondPath += LEFT;
+			}
+			switch (y2-y1)
+			{
+				case -1: // Up
+					iFirstPath += UP;
+					iSecondPath += DOWN;
+				case 1: // Down
+					iFirstPath += DOWN;
+					iSecondPath += UP;
+			}
+			
+			
+			if ( !isDestCellMaze || ( gridGraphics[x2][y2] & iSecondPath == iSecondPath ) )
+			{
+				isMaze[x2][y2] = true;
+				if ( x2 > 0 ) _walls.push(new PrimMazeWall(x2, y2, x2 - 1, y2));
+				if ( y2 > 0 ) _walls.push(new PrimMazeWall(x2, y2, x2, y2 - 1));
+				if ( x2 < 29 ) _walls.push(new PrimMazeWall(x2, y2, x2 + 1, y2));
+				if ( y2 < 29 ) _walls.push(new PrimMazeWall(x2, y2, x2, y2 + 1));
 				updateGridCell(x1, y1, iFirstPath);
 				updateGridCell(x2, y2, iSecondPath);
-				
-				if (!isFirstCellMaze)
-				{
-					isMaze[x1][y1] = true;
-					if ( x1 > 0 ) _walls.push(new PrimMazeWall(x1, y1, x1 - 1, y1));
-					if ( y1 > 0 ) _walls.push(new PrimMazeWall(x1, y1, x1, y1 - 1));
-					if ( x1 < 29 ) _walls.push(new PrimMazeWall(x1, y1, x1 + 1, y1));
-					if ( y1 < 29 ) _walls.push(new PrimMazeWall(x1, y1, x1, y1 + 1));
-				} else {
-					isMaze[x2][y2] = true;
-					if ( x2 > 0 ) _walls.push(new PrimMazeWall(x2, y2, x2 - 1, y2));
-					if ( y2 > 0 ) _walls.push(new PrimMazeWall(x2, y2, x2, y2 - 1));
-					if ( x2 < 29 ) _walls.push(new PrimMazeWall(x2, y2, x2 + 1, y2));
-					if ( y2 < 29 ) _walls.push(new PrimMazeWall(x2, y2, x2, y2 + 1));
-				}
 			}
+			
 			
 			// Remove wall
 			_walls.splice(iwall, 1);
+			
+			
 		}
 		
 		super.update();
+		
+		s2 = Timer.stamp();
+		trace(s2 - s1);
+		s1 = Timer.stamp();
 	}
 	
 	private function getRandomWall()
@@ -187,12 +230,12 @@ class TestStatePrim3 extends FlxState
 	private function setGridCell(x, y, set)
 	{
 		gridGraphics[x][y] = set;
-		gridSprites[x][y].loadGraphic(_wallGraphics[gridGraphics[x][y]]);
+		gridSprites[x][y].loadGraphicFromSprite(_cellSprites[gridGraphics[x][y]]);
 	}
 	
 	private function updateGridCell(x, y, change)
 	{
-		setGridCell(x, y, gridGraphics[x][y] + change);
+		if ( gridGraphics[x][y] & change == 0 ) setGridCell(x, y, gridGraphics[x][y] + change);
 	}
 	
 	override public function destroy():Void

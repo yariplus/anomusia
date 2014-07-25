@@ -1,4 +1,4 @@
-package unusedstates ;
+package states ;
 
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -12,11 +12,7 @@ import Std;
 
 import Reg;
 
-/**
- * ...
- * @author ...
- */
-class TestStatePrim extends FlxState
+class TestStatePrimRandomFrontier extends FlxState
 {
 	var isPathUp:Array<Array<Bool>> = new Array<Array<Bool>>();
 	var isPathDown:Array<Array<Bool>> = new Array<Array<Bool>>();
