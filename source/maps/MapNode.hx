@@ -3,6 +3,12 @@ package maps;
 /**
  * ...
  * @author ...
+ * 
+ * 
+ * @usage
+ * The MapNode is a SNES Screen size area.
+ * It can be attached to MapSection to make an area several SNES sizes big.
+ * 
  */
 class MapNode
 {

@@ -4,7 +4,6 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
 import flixel.text.FlxText;
-import maps.MapNode;
 import haxe.ds.Vector;
 import flixel.util.FlxColor;
 import Math;
@@ -73,8 +72,6 @@ class TestStatePrimRandomFrontier extends FlxState
 		_wallGraphics[14] = "assets/images/cellOpenDownLeftRight.png";
 		_wallGraphics[15] = "assets/images/cellOpenAll.png";
 		_wallGraphics[16] = "assets/images/cellFrontier.png";
-		
-		var masdsd:MapNode = new MapNode();
 		
 		// Make blank board
 		var cell:FlxSprite = new FlxSprite(0, 0);
@@ -159,8 +156,6 @@ class TestStatePrimRandomFrontier extends FlxState
 					trace("Connecting Right");
 			}
 		}
-		
-		Sys.sleep(.01);
 		
 		_connectX = _frontierX;
 		_connectY = _frontierY;

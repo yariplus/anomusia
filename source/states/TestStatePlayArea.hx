@@ -1,5 +1,6 @@
 package states;
 
+import entities.PlayerEntity;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxPoint;
@@ -12,9 +13,10 @@ import flixel.util.FlxColor;
 
 import flash.events.Event;
 
-import entities.CrEntity;
+import entities.CreatureEntity;
+import entities.PlayerEntity;
 
-import maps.Map;
+import maps.AMap;
 
 /**
  * A FlxState which can be used for the game's menu.
@@ -22,7 +24,7 @@ import maps.Map;
 class TestStatePlayArea extends FlxState
 {
 	
-	private var _player:FlxText;
+	private var _player:PlayerEntity;
 	private var _level:FlxText;
 	
 	private var _walls:FlxGroup;
@@ -39,41 +41,29 @@ class TestStatePlayArea extends FlxState
 		_walls = new FlxGroup();
 
 		_leftWall = new FlxSprite(0, 0);
-		_leftWall.makeGraphic(10, 240, FlxColor.GRAY);
+		_leftWall.makeGraphic(10, 448, FlxColor.GRAY);
 		_leftWall.immovable = true;
 		_walls.add(_leftWall);
 
-		_rightWall = new FlxSprite(310, 0);
-		_rightWall.makeGraphic(10, 240, FlxColor.GRAY);
+		_rightWall = new FlxSprite(512-10, 0);
+		_rightWall.makeGraphic(10, 448, FlxColor.GRAY);
 		_rightWall.immovable = true;
 		_walls.add(_rightWall);
 
 		_topWall = new FlxSprite(0, 0);
-		_topWall.makeGraphic(320, 10, FlxColor.GRAY);
+		_topWall.makeGraphic(512, 10, FlxColor.GRAY);
 		_topWall.immovable = true;
 		_walls.add(_topWall);
 
-		_bottomWall = new FlxSprite(0, 239);
-		_bottomWall.makeGraphic(320, 10, FlxColor.TRANSPARENT);
+		_bottomWall = new FlxSprite(0, 448-10);
+		_bottomWall.makeGraphic(512, 10, FlxColor.GRAY);
 		_bottomWall.immovable = true;
 		_walls.add(_bottomWall);
 		
 		add(_walls);
 		
-		_player = new FlxText(30, 30, 160, "Test");
-		_player.setFormat(null, 8, FlxColor.WHITE, "left", FlxText.BORDER_NONE, FlxColor.BLUE);
+		_player = new PlayerEntity(50, 50);
 		add(_player);
-		
-		_player.moves = true;
-		_player.maxVelocity.set(400, 400);
-		_player.drag.x = _player.maxVelocity.x * 8;
-		_player.drag.y = _player.maxVelocity.y * 8;
-		
-		_level = new FlxText(100, 100, 160, "Level 1");
-		_level.setFormat(null, 8, FlxColor.WHITE, "left", FlxText.BORDER_NONE, FlxColor.BLUE);
-		add(_level);
-		
-		
 		
 		super.create();
 	}

@@ -11,6 +11,7 @@ import flixel.util.FlxColor;
 import Math;
 import Std;
 import maps.PrimMazeWall;
+import flixel.FlxG;
 
 import Reg;
 
@@ -88,41 +89,6 @@ class TestStatePrimRandomWall extends FlxState
 		_wallGraphics[30] = "assets/images/cellLandmarkOpenDownLeftRight.png";
 		_wallGraphics[31] = "assets/images/cellLandmarkOpenAll.png";
 		
-		_cellSprites = new Array<FlxSprite>();
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenNone.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenUp.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenDown.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenUpDown.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenLeft.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenUpLeft.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenDownLeft.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenUpDownLeft.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenUpRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenDownRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenUpDownRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenLeftRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenUpLeftRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenDownLeftRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellOpenAll.png") );
-		
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenNone.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUp.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenDown.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUpDown.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenLeft.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUpLeft.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenDownLeft.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUpDownLeft.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUpRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenDownRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUpDownRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenLeftRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenUpLeftRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenDownLeftRight.png") );
-		_cellSprites.push( new FlxSprite("assets/images/cellLandmarkOpenAll.png") );
-		
 		// Add landmarks
 		for (i in 1...12)
 		{
@@ -156,6 +122,8 @@ class TestStatePrimRandomWall extends FlxState
 		_walls.push(new PrimMazeWall(_startx, _starty, _startx, _starty + 1));
 		
 		super.create();
+		
+		FlxG.camera.setPosition( 128, 112 );
 	}
 	
 	override public function update():Void
@@ -230,7 +198,7 @@ class TestStatePrimRandomWall extends FlxState
 	private function setGridCell(x, y, set)
 	{
 		gridGraphics[x][y] = set;
-		gridSprites[x][y].loadGraphicFromSprite(_cellSprites[gridGraphics[x][y]]);
+		gridSprites[x][y].loadGraphic(_wallGraphics[gridGraphics[x][y]]);
 	}
 	
 	private function updateGridCell(x, y, change)
