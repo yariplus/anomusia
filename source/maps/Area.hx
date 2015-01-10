@@ -6,11 +6,11 @@ package maps;
  * 
  * 
  * @usage
- * The MapNode is a SNES Screen size area.
- * It can be attached to MapSection to make an area several SNES sizes big.
+ * A SNES Screen size area.
+ * It can be attached to AreaGroup to make an area several SNES sizes big.
  * 
  */
-class MapNode
+class Area
 {
 	var isPathUp:Bool;
 	var isPathDown:Bool;

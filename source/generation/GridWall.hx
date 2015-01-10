@@ -1,10 +1,16 @@
-package maps;
+package generation;
 
 /**
  * ...
- * @author ...
+ * @author 
+ * yariplus
+ * 
+ * @usage
+ * Respresents a wall in a 2d tile grid, can have a passage between the two tiles.
+ * Used for generating a maze-like area.
+ * 
  */
-class PrimMazeWall
+class GridWall
 {
 	public var _x1(default,null):Int = 0;
 	public var _x2(default,null):Int = 0;
@@ -19,5 +25,4 @@ class PrimMazeWall
 		_y1 = y1;
 		_y2 = y2;
 	}
-	
 }

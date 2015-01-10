@@ -16,7 +16,7 @@
     <Width>640</Width>
     <Height>480</Height>
   </LevelMaximumSize>
-  <Filename>R:\Development\Flash Development\anomusia\assets\nodetest.oep</Filename>
+  <Filename>R:\Development\Flash Development\anomusia\assets\maps\nodetest.oep</Filename>
   <AngleMode>Radians</AngleMode>
   <CameraEnabled>false</CameraEnabled>
   <CameraSize>
@@ -26,7 +26,7 @@
   <ExportCameraPosition>false</ExportCameraPosition>
   <LevelValueDefinitions />
   <LayerDefinitions>
-    <LayerDefinition xsi:type="GridLayerDefinition">
+    <LayerDefinition xsi:type="TileLayerDefinition">
       <Name>NewLayer0</Name>
       <Grid>
         <Width>16</Width>
@@ -36,10 +36,19 @@
         <X>1</X>
         <Y>1</Y>
       </ScrollFactor>
-      <Color A="255" R="0" G="0" B="0" />
-      <ExportMode>Bitstring</ExportMode>
+      <ExportMode>CSV</ExportMode>
     </LayerDefinition>
   </LayerDefinitions>
-  <Tilesets />
+  <Tilesets>
+    <Tileset>
+      <Name>NewTileset0</Name>
+      <FilePath>..\images\tilesets\dcss.png</FilePath>
+      <TileSize>
+        <Width>16</Width>
+        <Height>16</Height>
+      </TileSize>
+      <TileSep>0</TileSep>
+    </Tileset>
+  </Tilesets>
   <EntityDefinitions />
 </project>

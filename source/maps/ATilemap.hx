@@ -1,13 +1,13 @@
 package maps;
 
-import maps.MapSection;
+import maps.AreaGroup;
 import flixel.tile.FlxTilemap;
 
 /**
  * ...
  * @author ...
  */
-class AMap extends FlxTilemap
+class ATilemap extends FlxTilemap
 {
 	public function new()
 	{

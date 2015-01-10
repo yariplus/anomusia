@@ -16,7 +16,7 @@ import flash.events.Event;
 import entities.CreatureEntity;
 import entities.PlayerEntity;
 
-import maps.AMap;
+import maps.ATilemap;
 
 /**
  * A FlxState which can be used for the game's menu.

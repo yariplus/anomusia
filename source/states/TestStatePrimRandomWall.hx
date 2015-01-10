@@ -5,12 +5,11 @@ import flixel.FlxState;
 import flixel.group.FlxGroup;
 import flixel.text.FlxText;
 import haxe.Timer;
-import maps.MapNode;
 import haxe.ds.Vector;
 import flixel.util.FlxColor;
 import Math;
 import Std;
-import maps.PrimMazeWall;
+import generation.GridWall;
 import flixel.FlxG;
 
 import Reg;
@@ -21,7 +20,7 @@ import Reg;
  */
 class TestStatePrimRandomWall extends FlxState
 {
-	private var _walls:Array<PrimMazeWall> = new Array<PrimMazeWall>();
+	private var _walls:Array<GridWall> = new Array<GridWall>();
 	var isMaze:Array<Array<Bool>> = new Array<Array<Bool>>();
 	var gridGraphics:Array<Array<Int>> = new Array<Array<Int>>();
 	var gridSprites:Array<Array<FlxSprite>> = new Array<Array<FlxSprite>>();
@@ -116,10 +115,10 @@ class TestStatePrimRandomWall extends FlxState
 		_starty = 15;
 		isMaze[_startx][_starty] = true;
 		updateGridCell(_startx, _starty, 0);
-		_walls.push(new PrimMazeWall(_startx, _starty, _startx - 1, _starty));
-		_walls.push(new PrimMazeWall(_startx, _starty, _startx, _starty - 1));
-		_walls.push(new PrimMazeWall(_startx, _starty, _startx + 1, _starty));
-		_walls.push(new PrimMazeWall(_startx, _starty, _startx, _starty + 1));
+		_walls.push(new GridWall(_startx, _starty, _startx - 1, _starty));
+		_walls.push(new GridWall(_startx, _starty, _startx, _starty - 1));
+		_walls.push(new GridWall(_startx, _starty, _startx + 1, _starty));
+		_walls.push(new GridWall(_startx, _starty, _startx, _starty + 1));
 		
 		super.create();
 		
@@ -169,10 +168,10 @@ class TestStatePrimRandomWall extends FlxState
 			if ( !isDestCellMaze || ( gridGraphics[x2][y2] & iSecondPath == iSecondPath ) )
 			{
 				isMaze[x2][y2] = true;
-				if ( x2 > 0 ) _walls.push(new PrimMazeWall(x2, y2, x2 - 1, y2));
-				if ( y2 > 0 ) _walls.push(new PrimMazeWall(x2, y2, x2, y2 - 1));
-				if ( x2 < 29 ) _walls.push(new PrimMazeWall(x2, y2, x2 + 1, y2));
-				if ( y2 < 29 ) _walls.push(new PrimMazeWall(x2, y2, x2, y2 + 1));
+				if ( x2 > 0 ) _walls.push(new GridWall(x2, y2, x2 - 1, y2));
+				if ( y2 > 0 ) _walls.push(new GridWall(x2, y2, x2, y2 - 1));
+				if ( x2 < 29 ) _walls.push(new GridWall(x2, y2, x2 + 1, y2));
+				if ( y2 < 29 ) _walls.push(new GridWall(x2, y2, x2, y2 + 1));
 				updateGridCell(x1, y1, iFirstPath);
 				updateGridCell(x2, y2, iSecondPath);
 			}

@@ -81,7 +81,7 @@ class MenuState extends FlxUIState
 		add(_btn33);
 		add(_btn34);
 		
-		FlxG.sound.playMusic(AssetPaths.avelinoherreraspringsun__ogg, 1, true);
+		//FlxG.sound.playMusic(AssetPaths.avelinoherreraspringsun__ogg, 1, true);
 	}
 	
 	private function click11():Void { FlxG.switchState(new TestStatePrimRandomWall()); }
